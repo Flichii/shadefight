@@ -1,0 +1,44 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: configure
+      run: ./configure
+    - name: make
+      run: make
+    - name: make check
+      run: make check
+    - name: make distcheck
+      run: make distcheck
+      
+      
+    - name: Download a Build Artifact
+  uses: actions/download-artifact@v2.1.1
+  with:
+    # Artifact name
+    name: # optional
+    # Destination path
+    path: # optional
+    
+    - name: ServiceNow CI/CD Install App
+
+  # uses: ServiceNow/sncicd-install-app@c2cd948de450aff560f8d2572255f758385996c7
+  uses: ServiceNow/sncicd-install-app@2.0.0
+  with:
+    # Application version to install
+    version: 
+    # Version of the base application on which to apply the customizations
+    baseAppVersion: # optional
+    # Only applicable if Application Customization is active and the associated application is a higher version than the currently installed version
+    autoUpgradeBaseApp: # optional
